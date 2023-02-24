@@ -5,15 +5,18 @@ export const Sidebar = () => {
   return (
     <Box
       bg="background"
-      height="sibebarWidth"
-      display="flex"
-      alignItems="center"
-      justifyContent="space-between"
-      
-      px={4}
     >
-      
+      <Box
+        height="sibebarWidth"
+        display="flex"
+        alignItems="center"
+        justifyContent="space-between"
+        px={4}
+        mx="auto"
+        maxWidth="560px"
+      >
         <Navigation />
+      </Box>
     </Box>
   );
 };

@@ -1,3 +1,4 @@
+import { Box } from 'components/Box';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useLocation } from 'react-router-dom';
@@ -7,7 +8,7 @@ import { selectProfileData } from 'redux/profile/profile.selector';
 import { getProfileThunk } from 'redux/profile/profile.thunk';
 
 const getActiveClassName = ({ isActive }) => {
-  return isActive ? 'btn nav-btn btn-light active' : 'btn nav-btn btn-light';
+  return isActive ? '' : '';
 };
 
 export const Navigation = () => {
@@ -24,54 +25,80 @@ export const Navigation = () => {
   }, [token, dispatch]);
 
   return (
-    <div>
+    <>
+      <NavLink to="" className={getActiveClassName}>
+        Home page
+      </NavLink>
+      {token && profile && (
+        <Box
+          display="flex"
+          justifyContent="center"
+          // flexDirection="column"
+          alignItems="baseline"
+        >
+          <small>{profile.email}</small>
+          <Box
+            as="button"
+            border="none"
+            boxShadow="buttonShadow"
+            borderRadius="normal"
+            bg="secondary"
+            color="light"
+            fontFamily="body"
+            fontSize={0}
+            p={2}
+            mt={3}
+            type="button"
+            onClick={() => dispatch(authLogoutThunk())}
+          >
+            Log Out
+          </Box>
+        </Box>
+      )}
       <div>
-              
-        {!token && <h2>Please log in!</h2>}
-
-        {token && profile && (
-          <>
-            <h2>Welcome!</h2>
-            <small>{profile.email}</small>
-            <br />
-            <button
-              // onClick={() => dispatch(logoutAction())}
-              onClick={() => dispatch(authLogoutThunk())}
-            >
-              Log Out
-            </button>
-            <br />
-            <br />
-          </>
-        )}
-
-        <NavLink to="" className={getActiveClassName}>
-          Home page
-        </NavLink>
-
+        
         {token ? (
-          <>
-            <NavLink to="contacts" end className={getActiveClassName}>
-              Contacts list
-            </NavLink>
-
-            <NavLink to="new-contact" className={getActiveClassName}>
-              Create new contact
-            </NavLink>
-
-          </>
+          <Box
+            as="ul"
+            // display="flex"
+            // alignItems="baseline"
+          >
+            <li>
+              <NavLink to="contacts" end className={getActiveClassName}>
+                Contacts list
+              </NavLink>
+            </li>
+            
+          </Box>
         ) : (
-          <>
-            <NavLink to="login" state={{ from: location }} className={getActiveClassName}>
-              Login
-            </NavLink>
+          <Box
+            as="ul"
+            display="flex"
+          >
+            <Box
+              as="li"
+              pr={5}
+            >
+              <NavLink
+                to="login"
+                state={{ from: location }}
+                className={getActiveClassName}
+              >
+                Login
+              </NavLink>
+            </Box>
+            <li>
+              <NavLink
+                to="join"
+              // className={getActiveClassName}
+              >
+                Join
+              </NavLink>
+            </li>
 
-            <NavLink to="join" className={getActiveClassName}>
-              Join
-            </NavLink>
-          </>
+          </Box>
         )}
       </div>
-    </div>
+    </>
   );
 };

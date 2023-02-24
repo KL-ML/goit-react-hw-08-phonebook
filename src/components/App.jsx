@@ -2,12 +2,12 @@ import React, { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Layout } from "./Layout/Layout";
 import { PublicRoute } from "./AuthRouts/PublicRoute";
-import ContactsPage from "pages/ContactsPage";
 import { PrivateRoute } from "./AuthRouts/PrivateRoute";
 
 const JoinPage = lazy(() => import("pages/JoinPage"));
 const LoginPage = lazy(() => import("pages/LoginPage"));
 const HomePage = lazy(() => import("pages/HomePage"));
+const ContactsPage = lazy(() => import("pages/ContactsPage"));
 
 export const App = () => {
 

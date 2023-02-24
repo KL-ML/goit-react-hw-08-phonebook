@@ -1,21 +1,31 @@
-import { ToastContainer } from 'react-toastify';
-
-// import { ConfettiContainer } from 'components/Confetti/Confetti'; 
-
+import { Box } from 'components/Box';
 import { Sidebar } from './Sidebar/Sidebar'; 
 
 export const Layout = ({ children }) => {
   return (
-    <>
-      <div>
-        <Sidebar />
+    <Box
+      // bg="light"
+      color="text"
+      // width="containerWidth"
+      position="relative"
+      // p={3}
+      // my={0}
+      // mx="auto"
+      // boxShadow="containerShadow"
+      // borderRadius="normal"
+      // overflow="hidden"
+      fontFamily="heading"
+    >
+      <Sidebar />
 
-        <main>
-          <div>{children}</div>
-        </main>
-      </div>
-
-      <ToastContainer />
-    </>
+      <Box
+        as="main"
+        px={6}
+        display="flex"
+        justifyContent="center"  
+      >
+        <>{children}</>
+      </Box>
+    </Box>
   );
 };

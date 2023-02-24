@@ -5,7 +5,6 @@ import {
     useDispatch,
     useSelector
 } from 'react-redux';
-// import { useNavigate } from 'react-router-dom';
 import { selectAuthStatus } from 'redux/auth/auth.selector';
 import { authLoginThunk } from 'redux/auth/auth.thunk';
 
@@ -32,10 +31,9 @@ const LoginPage = () => {
     try {
       await dispatch(authLoginThunk(values)).unwrap();
       console.log('Success');
-      // navigate('/', { replace: true });
       //toast, або ще що завгодно
-    } catch {
-      console.log('Error');
+    } catch(e) {
+      console.log('Error: ', e);
     }
   };
 

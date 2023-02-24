@@ -26,15 +26,55 @@ export const Navigation = () => {
 
   return (
     <>
-      <NavLink to="" className={getActiveClassName}>
-        Home page
-      </NavLink>
+      {token && (
+        <>
+          <Box
+            as="ul"
+            display="flex"
+          >
+            <Box
+              as="li"
+              mr={4}
+            >
+              <NavLink to="" className={getActiveClassName}>
+                Home page
+              </NavLink>
+            </Box>
+            <li>
+              <NavLink to="contacts" end className={getActiveClassName}>
+                Contacts list
+              </NavLink>
+            </li>
+          </Box>
+  
+        </>
+      )}
+      {!token && (
+        <>
+          <NavLink to="" className={getActiveClassName}>
+            Home page
+          </NavLink>
+          <Box as="ul" display="flex">
+            <Box as="li" pr={5}>
+              <NavLink to="login" state={{ from: location }}
+                className={getActiveClassName}
+              >Login
+              </NavLink>
+            </Box>
+            <li>
+              <NavLink to="join"
+                className={getActiveClassName}
+              >Join</NavLink>
+            </li>
+          </Box>
+        </>
+      )}
       {token && profile && (
         <Box
           display="flex"
           justifyContent="center"
-          // flexDirection="column"
-          alignItems="baseline"
+          flexDirection="column"
+          alignItems="flex-end"
         >
           <small>{profile.email}</small>
           <Box
@@ -55,50 +95,6 @@ export const Navigation = () => {
           </Box>
         </Box>
       )}
-      <div>
-        
-        {token ? (
-          <Box
-            as="ul"
-            // display="flex"
-            // alignItems="baseline"
-          >
-            <li>
-              <NavLink to="contacts" end className={getActiveClassName}>
-                Contacts list
-              </NavLink>
-            </li>
-            
-          </Box>
-        ) : (
-          <Box
-            as="ul"
-            display="flex"
-          >
-            <Box
-              as="li"
-              pr={5}
-            >
-              <NavLink
-                to="login"
-                state={{ from: location }}
-                className={getActiveClassName}
-              >
-                Login
-              </NavLink>
-            </Box>
-            <li>
-              <NavLink
-                to="join"
-              // className={getActiveClassName}
-              >
-                Join
-              </NavLink>
-            </li>
-
-          </Box>
-        )}
-      </div>
     </>
   );
 };

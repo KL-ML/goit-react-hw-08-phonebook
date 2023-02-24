@@ -1,13 +1,10 @@
+import { Box } from 'components/Box';
 import { useState } from 'react';
 
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
-// import { toast } from 'react-toastify';
 
-// import { publicApi } from 'http/http';
 import { authLoginThunk, authRegisterThunk } from '../redux/auth/auth.thunk';
 
-const year = new Date().getFullYear();
 const initialState = {
   name: '',
   email: '',
@@ -16,10 +13,7 @@ const initialState = {
 
 const JoinPage = () => {
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(false);
   const [values, setValues] = useState(initialState);
-
-  const [isPass, setIsPass] = useState(true);
 
   const handleChange = event => {
     const { value, name } = event.target;
@@ -29,12 +23,8 @@ const JoinPage = () => {
   const handleSubmit = async event => {
     event.preventDefault();
     try {
-      setIsLoading(true);
-      // await publicApi.post('/users/signup', values);
       await dispatch(authRegisterThunk(values)).unwrap();
       await dispatch(authLoginThunk({ email: values.email, password: values.password })).unwrap();
-      setIsLoading(false);
-      console.log('Success!');
     } catch (e) {
       console.log('Some error:', e);
     } finally {
@@ -48,60 +38,104 @@ const JoinPage = () => {
 
   return (
     <>
-      {isLoading && <p>Loading ...</p>}
-
-      <form action="#" onSubmit={handleSubmit}>
+      <Box
+        as="form"
+        p={4}
+        display="flex"
+        flexDirection="column"
+        width="formWidth"
+        action="#"
+        onSubmit={handleSubmit}>
         <h1>Please Sign In</h1>
-
-        <div>
-          <input
+        <Box
+          as="label"
+          display="flex"
+          flexDirection="column"
+          mb={3}
+        >
+          Email address
+          <Box
+            as="input"
+            mt={3}
+            p={2}
+            border="none"
+            boxShadow="shadowStats"
+            borderRadius="normal"
+            fontFamily="body"
+            color="text"
             id="email"
             name="email"
             type="email"
-            autoComplete="username"
+            autoComplete="useremail"
             value={values.email}
             onChange={handleChange}
-            />
-          <label htmlFor="email">Email address</label>
-        </div>
+          />
+        </Box>
 
-        <div>
-          <input
+        <Box
+          as="label"
+          display="flex"
+          flexDirection="column"
+          mb={3}
+        >
+          Name
+          <Box
+            as="input"
+            mt={3}
+            p={2}
+            border="none"
+            boxShadow="shadowStats"
+            borderRadius="normal"
+            fontFamily="body"
+            color="text"
             id="name"
             name="name"
             type="name"
-            autoComplete="off"
+            autoComplete="username"
             value={values.name}
             onChange={handleChange}
           />
-          <label htmlFor="name">Name</label>
-        </div>
+        </Box>
 
-        <div>
-          <input
+        <Box
+          as="label"
+          display="flex"
+          flexDirection="column"
+          mb={3}
+        >
+          Password
+          <Box
+            as="input"
+            mt={3}
+            p={2}
+            border="none"
+            boxShadow="shadowStats"
+            borderRadius="normal"
+            fontFamily="body"
+            color="text"
             id="password"
             name="password"
-            type={isPass ? 'password' : 'text'}
+            type="password"
             autoComplete="current-password"
             value={values.password}
             onChange={handleChange}
-            />
-          <label htmlFor="password">Password</label>
-        </div>
+          />
+        </Box>
 
-        <button type="button" onClick={() => setIsPass(prev => !prev)}>
-          toggle
-        </button>
-
-        <Link to="/login">
-          Already has account?
-        </Link>
-
-        <button type="submit">
+        <Box
+          as="button"
+          border="none"
+          boxShadow="buttonShadow"
+          borderRadius="normal"
+          bg="secondary"
+          color="light"
+          fontFamily="body"
+          p={2}
+          mt={3}
+          type="submit">
           Sign In
-        </button>
-        <p>© {year}</p>
-      </form>
+        </Box>
+      </Box>
     </>
   );
 };

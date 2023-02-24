@@ -1,11 +1,9 @@
-import { STATUS } from 'constants/status.constants';
+import { Box } from 'components/Box';
 import { useState } from 'react';
 
 import {
     useDispatch,
-    useSelector
 } from 'react-redux';
-import { selectAuthStatus } from 'redux/auth/auth.selector';
 import { authLoginThunk } from 'redux/auth/auth.thunk';
 
 const initialState = {
@@ -15,9 +13,7 @@ const initialState = {
 
 const LoginPage = () => {
   const dispatch = useDispatch();
-  const status = useSelector(selectAuthStatus);
-
-  // const navigate = useNavigate();
+ 
   const [values, setValues] = useState(initialState);
 
   const handleChange = event => {
@@ -30,7 +26,6 @@ const LoginPage = () => {
 
     try {
       await dispatch(authLoginThunk(values)).unwrap();
-      console.log('Success');
       //toast, або ще що завгодно
     } catch(e) {
       console.log('Error: ', e);
@@ -39,37 +34,80 @@ const LoginPage = () => {
 
   return (
     <>
-      {status === STATUS.loading && <p>Loading ...</p>}
-
-      <form action="#" onSubmit={handleSubmit}>
+      <Box
+        as="form"
+        p={4}
+        display="flex"
+        flexDirection="column"
+        width="formWidth"
+        action="#"
+        onSubmit={handleSubmit}>
         <h1>Login page</h1>
 
-        <div>
-          <input
+        <Box
+          as="label"
+          display="flex"
+          flexDirection="column"
+          mb={3}
+        >
+          Email address
+          <Box
+            as="input"
+            mt={3}
+            p={2}
+            border="none"
+            boxShadow="shadowStats"
+            borderRadius="normal"
+            fontFamily="body"
+            color="text"
             type="text"
             id="email"
             name="email"
+            autoComplete="useremail"
             value={values.email}
             onChange={handleChange}
             />
-          <label htmlFor="email">Email address</label>
-        </div>
+        </Box>
 
-        <div>
-          <input
+        <Box
+          as="label"
+          display="flex"
+          flexDirection="column"
+          mb={3}
+        >
+          Password
+          <Box
+            as="input"
+            mt={3}
+            p={2}
+            border="none"
+            boxShadow="shadowStats"
+            borderRadius="normal"
+            fontFamily="body"
+            color="text"
             id="password"
             type="password"
             name="password"
+            autoComplete="current-password"
             value={values.password}
             onChange={handleChange}
             />
-          <label htmlFor="password">Password</label>
-        </div>
+        </Box>
 
-        <button type="submit">
+        <Box
+          as="button"
+          border="none"
+          boxShadow="buttonShadow"
+          borderRadius="normal"
+          bg="secondary"
+          color="light"
+          fontFamily="body"
+          p={2}
+          mt={3}
+          type="submit">
           Submit
-        </button>
-      </form>
+        </Box>
+      </Box>
     </>
   );
 };

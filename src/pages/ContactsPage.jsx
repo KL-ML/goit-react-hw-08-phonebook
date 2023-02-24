@@ -12,6 +12,7 @@ import {
   selectFilter,
   selectIsLoading
 } from "redux/contactsFilter/contacts.selectors";
+import { Box } from "components/Box";
 
 const { ContactForm } = require("components/ContactForm");
 const { ContactList } = require("components/ContactList");
@@ -58,7 +59,11 @@ const ContactsPage = () => {
     };
 
     return (
-        <>
+        <Box
+        p={4}
+        display="flex"
+        flexDirection="column"
+        width="containerWidth">
             <h1>Phonebook</h1>
             <ContactForm
                 onSubmit={formSubmitHandler}
@@ -74,7 +79,7 @@ const ContactsPage = () => {
                 {!isLoading && !error && <p>Contacts list:</p>}
                 {!isLoading && error && <p>Sorry, something goe's wrong</p>}
             </ContactList>
-        </>
+        </Box>
     );
 };
 

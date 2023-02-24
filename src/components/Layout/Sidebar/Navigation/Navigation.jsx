@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useLocation } from 'react-router-dom';
 import { selectAuthToken } from 'redux/auth/auth.selector';
-import { logoutAction } from 'redux/auth/auth.slice';
+import { authLogoutThunk } from 'redux/auth/auth.thunk';
 import { selectProfileData } from 'redux/profile/profile.selector';
 import { getProfileThunk } from 'redux/profile/profile.thunk';
 
@@ -19,8 +19,7 @@ export const Navigation = () => {
 
   useEffect(() => {
     if (token) {
-      console.log('token at useEffect in Navigation:', token)
-    dispatch(getProfileThunk());
+      dispatch(getProfileThunk());
     }
   }, [token, dispatch]);
 
@@ -34,6 +33,13 @@ export const Navigation = () => {
           <>
             <h2>Welcome!</h2>
             <small>{profile.email}</small>
+            <br />
+            <button
+              // onClick={() => dispatch(logoutAction())}
+              onClick={() => dispatch(authLogoutThunk())}
+            >
+              Log Out
+            </button>
             <br />
             <br />
           </>
@@ -53,11 +59,6 @@ export const Navigation = () => {
               Create new contact
             </NavLink>
 
-            <button
-              onClick={() => dispatch(logoutAction())}
-            >
-              Log Out
-            </button>
           </>
         ) : (
           <>

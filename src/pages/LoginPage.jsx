@@ -1,9 +1,7 @@
 import { Box } from 'components/Box';
 import { useState } from 'react';
 
-import {
-    useDispatch,
-} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { authLoginThunk } from 'redux/auth/auth.thunk';
 
 const initialState = {
@@ -23,13 +21,7 @@ const LoginPage = () => {
 
   const handleSubmit = async event => {
     event.preventDefault();
-
-    try {
       await dispatch(authLoginThunk(values)).unwrap();
-      //toast, або ще що завгодно
-    } catch(e) {
-      console.log('Error: ', e);
-    }
   };
 
   return (

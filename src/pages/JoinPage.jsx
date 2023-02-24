@@ -2,7 +2,6 @@ import { Box } from 'components/Box';
 import { useState } from 'react';
 
 import { useDispatch } from 'react-redux';
-
 import { authLoginThunk, authRegisterThunk } from '../redux/auth/auth.thunk';
 
 const initialState = {
@@ -22,18 +21,8 @@ const JoinPage = () => {
 
   const handleSubmit = async event => {
     event.preventDefault();
-    try {
       await dispatch(authRegisterThunk(values)).unwrap();
       await dispatch(authLoginThunk({ email: values.email, password: values.password })).unwrap();
-    } catch (e) {
-      console.log('Some error:', e);
-    } finally {
-      setValues({
-        name: '',
-        email: '',
-        password: '',
-      });
-    }
   };
 
   return (

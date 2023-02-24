@@ -75,9 +75,10 @@ const ContactsPage = () => {
             <ContactList
                 contacts={visibleContacts}
                 onDeleteContact={deleteCurrentContact}>
+                {contacts.length === 0 && <p>Add your first contact!</p>}
                 {isLoading && !error && <p>Loading...</p>}
-                {!isLoading && !error && <p>Contacts list:</p>}
-                {!isLoading && error && <p>Sorry, something goe's wrong</p>}
+                {contacts.length > 0 && !isLoading && !error && <p>Contacts list:</p>}
+                {!isLoading && error && <p>Sorry, something goes wrong</p>}
             </ContactList>
         </Box>
     );

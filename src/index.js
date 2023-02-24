@@ -6,7 +6,6 @@ import { ThemeProvider } from '@emotion/react';
 import { theme } from './constants';
 import { Provider } from 'react-redux';
 import { store } from 'redux/store';
-import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   

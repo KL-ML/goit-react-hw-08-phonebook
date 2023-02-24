@@ -4,10 +4,17 @@ import { privateApi, publicApi, token } from 'http/http';
 
 export const authRegisterThunk = createAsyncThunk(
   'register',
-  async (values) => {
-    const { data } = await publicApi.post('/users/signup', values);
-    token.set(data.token);
-    return data;
+  async (values, { rejectWithValue }) => {
+    try {
+      const { data } = await publicApi.post('/users/signup', values);
+      token.set(data.token);
+      return data;
+    } catch (e) {
+      console.log(e.message);
+      return rejectWithValue(e.message);
+      
+    }
+    
   });
 
 export const authLoginThunk = createAsyncThunk(

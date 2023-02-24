@@ -3,8 +3,7 @@ import { privateApi, token } from "http/http";
 import { selectAuthToken } from "redux/auth/auth.selector";
 
 export const getProfileThunk = createAsyncThunk('profile', async (_, { getState, rejectWithValue }) => {
-  const stateToken = selectAuthToken(getState());
-  console.log('stateToken in getProfileThunk', stateToken)
+  const stateToken = selectAuthToken(getState()).token;
 
   if (!stateToken) {
     return rejectWithValue();

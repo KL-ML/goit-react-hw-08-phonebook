@@ -45,7 +45,9 @@ export const theme = {
         buttonShadow: 'rgba(0, 0, 0, 0.09) 0px 1px 1px;',
     },
     sizes: {
+        formWidth:'280px',
         containerWidth: '380px',
+        sibebarWidth: '60px',
         contactListMinHeigth: '80px',
         inputHeight: '20px',
     },

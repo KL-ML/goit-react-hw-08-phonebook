@@ -4,14 +4,13 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 // import { toast } from 'react-toastify';
 
-import { publicApi } from 'http/http';
-import { authLoginThunk } from '../redux/auth/auth.thunk';
+// import { publicApi } from 'http/http';
+import { authLoginThunk, authRegisterThunk } from '../redux/auth/auth.thunk';
 
 const year = new Date().getFullYear();
 const initialState = {
+  name: '',
   email: '',
-  first_name: '',
-  last_name: '',
   password: '',
 };
 
@@ -27,24 +26,21 @@ const JoinPage = () => {
     setValues(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async event => {
     event.preventDefault();
     try {
       setIsLoading(true);
-      await publicApi.post('/users/create', values);
       // await publicApi.post('/users/signup', values);
+      await dispatch(authRegisterThunk(values)).unwrap();
       await dispatch(authLoginThunk({ email: values.email, password: values.password })).unwrap();
       setIsLoading(false);
       console.log('Success!');
     } catch (e) {
-      console.log(e);
-      console.log('Some error');
+      console.log('Some error:', e);
     } finally {
       setValues({
+        name: '',
         email: '',
-        // name: '',
-        first_name: '',
-        last_name: '',
         password: '',
       });
     }
@@ -71,26 +67,14 @@ const JoinPage = () => {
 
         <div>
           <input
-            id="first_name"
-            name="first_name"
-            type="first_name"
+            id="name"
+            name="name"
+            type="name"
             autoComplete="off"
-            value={values.first_name}
+            value={values.name}
             onChange={handleChange}
           />
-          <label htmlFor="first_name">First Name</label>
-        </div>
-
-        <div>
-          <input
-            id="last_name"
-            name="last_name"
-            type="last_name"
-            autoComplete="off"
-            value={values.last_name}
-            onChange={handleChange}
-            />
-          <label htmlFor="last_name">Last Name</label>
+          <label htmlFor="name">Name</label>
         </div>
 
         <div>

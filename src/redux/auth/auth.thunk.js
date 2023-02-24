@@ -20,11 +20,13 @@ export const authLoginThunk = createAsyncThunk(
 
 export const authLogoutThunk = createAsyncThunk(
   'logout',
-  async (_, thunkAPI) => {
+  async (_, { rejectWithValue }) => {
+
     try {
       await privateApi.post('/users/logout');
-      token.remove();
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+    token.remove();
+    } catch(e) {
+      return rejectWithValue(e.message);
     }
+    
   });
